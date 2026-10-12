@@ -1,0 +1,36 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: coupon-service
+  devtools:
+    restart:
+      exclude: target/**,node_modules/**,.idea/**,.vscode/**,*.log
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 127.0.0.1:8858
+  datasource:
+    url: jdbc:mysql://localhost:3306/pethome_product?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: coupon-producer

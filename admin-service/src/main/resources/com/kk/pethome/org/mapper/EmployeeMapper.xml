@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kk.pethome.org.mapper.EmployeeMapper">
+    <resultMap id="empMap" type="com.kk.pethome.org.pojo.Employee">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="salt" property="salt"/>
+        <result column="password" property="password"/>
+        <result column="age" property="age"/>
+        <result column="state" property="state"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="logininfo_id" property="logininfoId"/>
+        <result column="shop_id" property="shopId"/>
+    </resultMap>
+    <insert id="Add" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_employee (id,
+                                username,
+                                phone,
+                                email,
+                                salt,
+                                password,
+                                age,
+                                state,
+                                department_id,
+                                logininfo_id,
+                                shop_id
+)values (#{id},
+                                #{username},
+                                #{phone},
+                                #{email},
+                                #{salt},
+                                #{password},
+                                #{age},
+                                #{state},
+                                #{departmentId},
+                                #{logininfoId},
+                                #{shopId}
+)
+    </insert>
+    <update id="Update" parameterType="com.kk.pethome.org.pojo.Employee">
+        update t_employee set username = #{username},
+                                phone = #{phone},
+                                email = #{email},
+                                salt = #{salt},
+                                password = #{password},
+                                age = #{age},
+                                state = #{state},
+                                department_id = #{departmentId},
+                                logininfo_id = #{logininfoId},
+                                shop_id = #{shopId}
+        where id = #{id}
+    </update>
+
+    <delete id="Delete">
+        delete from t_employee where id = #{id}
+    </delete>
+    <select id="lookById" resultType="com.kk.pethome.org.pojo.Employee">
+        select * from t_employee where id = #{managerId}
+    </select>
+    <select id="lookPage" resultType="com.kk.pethome.org.pojo.Employee">
+        select * from t_employee limit #{start}, #{pageSize}
+    </select>
+    <select id="lookAll" resultMap="empMap">
+        select * from t_employee
+    </select>
+    <select id="loadcount" resultType="java.lang.Integer">
+        select count(*) from t_employee
+    </select>
+    <select id="lookByName" resultMap="empMap">
+        select * from t_employee where username=#{username}
+    </select>
+    <select id="queryByLoginInfoId" resultType="com.kk.pethome.org.pojo.Employee">
+        select * from t_employee where logininfo_id=#{id}
+    </select>
+</mapper>

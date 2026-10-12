@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent><groupId>com.kk.pethome</groupId><artifactId>pethome-cloud</artifactId><version>1.0-SNAPSHOT</version></parent>
+    <artifactId>pethome-pojo</artifactId>
+    <description>共享实体：User、Product、Order、PayLog 等 domain + dto + query</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kk.pethome</groupId>
+            <artifactId>pethome-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <!-- EasyPOI（Shop.java 用 @Excel 注解） -->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-annotation</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <!-- FastJSON（loginInfo 等用到） -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.50</version>
+        </dependency>
+    </dependencies>
+</project>

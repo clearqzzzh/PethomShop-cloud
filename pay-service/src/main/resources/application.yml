@@ -1,0 +1,45 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: pay-service
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 127.0.0.1:8858
+      config:
+        import-check:
+          enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/pethome_pay?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:com/kk/pethome/pay/mapper/*.xml
+
+alipay:
+  app-id: ${ALIPAY_APP_ID:2021000123456789}
+  private-key: ${ALIPAY_PRIVATE_KEY:mock-key}
+  alipay-public-key: ${ALIPAY_PUBLIC_KEY:mock-key}
+  gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+  notify-url: ${ALIPAY_NOTIFY_URL:http://localhost:8085/api/pay/notify}
+  sign-type: RSA2
+  charset: UTF-8
+  format: json
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: pethome-pay-producer
+    send-message-timeout: 3000
+    retry-times-when-send-failed: 2
+  consumer:
+    group: pethome-pay-consumer
+    pull-batch-size: 10
+    max-reconsume-times: 3

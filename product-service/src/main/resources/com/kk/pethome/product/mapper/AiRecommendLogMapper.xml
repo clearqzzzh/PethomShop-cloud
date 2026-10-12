@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kk.pethome.product.mapper.AiRecommendLogMapper">
+    <resultMap id="logMap" type="com.kk.pethome.product.pojo.AiRecommendLog">
+        <id column="id" property="id"/>
+        <result column="session_id" property="sessionId"/>
+        <result column="keyword" property="keyword"/>
+        <result column="product_ids" property="productIds"/>
+        <result column="ai_reply" property="aiReply"/>
+        <result column="user_feedback" property="userFeedback"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="lookAll" resultMap="logMap">
+        select * from t_ai_recommend_log order by create_time desc
+    </select>
+
+    <select id="lookById" resultMap="logMap">
+        select * from t_ai_recommend_log where id = #{id}
+    </select>
+
+    <select id="loadcount" resultType="java.lang.Integer">
+        select count(*) from t_ai_recommend_log
+    </select>
+
+    <select id="lookPage" resultMap="logMap">
+        select * from t_ai_recommend_log limit #{currentPage}, #{pageSize}
+    </select>
+
+    <select id="findBySessionId" resultMap="logMap">
+        select * from t_ai_recommend_log
+        where session_id = #{sessionId}
+        order by create_time desc
+        limit #{limit}
+    </select>
+
+    <insert id="Add" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into t_ai_recommend_log(session_id, keyword, product_ids, ai_reply, user_feedback, create_time)
+        values(#{sessionId}, #{keyword}, #{productIds}, #{aiReply}, #{userFeedback}, #{createTime})
+    </insert>
+
+    <update id="Update" parameterType="com.kk.pethome.product.pojo.AiRecommendLog">
+        update t_ai_recommend_log
+        set session_id = #{sessionId},
+            keyword = #{keyword},
+            product_ids = #{productIds},
+            ai_reply = #{aiReply},
+            user_feedback = #{userFeedback},
+            create_time = #{createTime}
+        where id = #{id}
+    </update>
+
+    <delete id="Delete">
+        delete from t_ai_recommend_log where id = #{id}
+    </delete>
+
+    <delete id="DeleteBatch">
+        delete from t_ai_recommend_log where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

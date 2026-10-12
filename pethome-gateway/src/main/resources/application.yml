@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8858
+        heart-beat-interval: 5000
+        heart-beat-timeout: 15000
+        ip-delete-timeout: 30000
+      config:
+        import-check:
+          enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: coupon-service
+          uri: lb://coupon-service
+          predicates:
+            - Path=/api/coupon/**
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/api/admin/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**,/api/pet/**
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/product/**,/api/favorite/**,/api/review/**
+        - id: pay-service
+          uri: lb://pay-service
+          predicates:
+            - Path=/api/pay/**
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**,/api/cart/**,/api/address/**,/api/history/**

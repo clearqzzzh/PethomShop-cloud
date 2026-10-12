@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kk.pethome.product.mapper.ProductReviewMapper">
+    <resultMap id="reviewMap" type="com.kk.pethome.product.pojo.ProductReview">
+        <id column="id" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="user_id" property="userId"/>
+        <result column="rating" property="rating"/>
+        <result column="comment" property="comment"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="lookAll" resultMap="reviewMap">
+        select * from t_product_review order by create_time desc
+    </select>
+
+    <select id="lookById" resultMap="reviewMap">
+        select * from t_product_review where id = #{id}
+    </select>
+
+    <select id="loadcount" resultType="java.lang.Integer">
+        select count(*) from t_product_review
+    </select>
+
+    <select id="lookPage" resultMap="reviewMap">
+        select * from t_product_review limit #{currentPage}, #{pageSize}
+    </select>
+
+    <select id="findByProductId" resultMap="reviewMap">
+        select * from t_product_review where product_id = #{productId} order by create_time desc
+    </select>
+
+    <select id="findByUserId" resultMap="reviewMap">
+        select * from t_product_review where user_id = #{userId} order by create_time desc
+    </select>
+
+    <insert id="Add" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into t_product_review(product_id, user_id, rating, comment, create_time)
+        values(#{productId}, #{userId}, #{rating}, #{comment}, #{createTime})
+    </insert>
+
+    <update id="Update" parameterType="com.kk.pethome.product.pojo.ProductReview">
+        update t_product_review
+        set product_id = #{productId},
+            user_id = #{userId},
+            rating = #{rating},
+            comment = #{comment},
+            create_time = #{createTime}
+        where id = #{id}
+    </update>
+
+    <delete id="Delete">
+        delete from t_product_review where id = #{id}
+    </delete>
+
+    <delete id="DeleteBatch">
+        delete from t_product_review where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

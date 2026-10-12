@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: coupon-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8858
+server:
+  port: 8087

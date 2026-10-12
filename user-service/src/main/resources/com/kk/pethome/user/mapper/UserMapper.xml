@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kk.pethome.user.mapper.UserMapper">
+    <resultMap id="userMap" type="com.kk.pethome.user.pojo.User">
+        <id property="id" column="id"></id>
+        <result property="phone" column="phone"></result>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="logininfoId" column="logininfoId"></result>
+        <result property="createtime" column="createtime"></result>
+        <result property="headImg" column="headImg"></result>
+        <result property="age" column="age"></result>
+        <result property="email" column="email"></result>
+        <result property="state" column="state"></result>
+        <result property="salt" column="salt"></result>
+    </resultMap>
+
+
+    <select id="getByPhone" resultMap="userMap" resultType="com.kk.pethome.user.pojo.User">
+        select * from t_user where phone = #{phone}
+    </select>
+    <update id="Update" parameterType="com.kk.pethome.user.pojo.User">
+        update t_user set phone=#{phone},username=#{username},password=#{password},logininfo_id=#{logininfoId},headImg=#{headImg},age=#{age},email=#{email},state=#{state},salt=#{salt} where id=#{id}
+    </update>
+    <insert id="Add" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_user (phone,username,password,logininfo_id,headImg,age,email,state,salt)
+        values (#{phone},#{username},#{password},#{logininfoId},#{headImg},#{age},#{email},#{state},#{salt})
+    </insert>
+    <select id="lookById" resultType="com.kk.pethome.user.pojo.User">
+        select * from t_user where id=#{id}
+    </select>
+</mapper>

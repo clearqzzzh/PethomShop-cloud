@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kk.pethome.pay.mapper.PayLogMapper">
+
+    <resultMap id="payLogMap" type="com.kk.pethome.pay.pojo.PayLog">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="amount" property="amount"/>
+        <result column="status" property="status"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="findByOutTradeNo" resultMap="payLogMap">
+        SELECT * FROM t_pay_log WHERE out_trade_no = #{outTradeNo}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_pay_log(order_id, out_trade_no, amount, status, pay_time, create_time)
+        VALUES(#{orderId}, #{outTradeNo}, #{amount}, #{status}, #{payTime}, #{createTime})
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE t_pay_log
+        SET status = #{status}, pay_time = #{payTime}
+        WHERE out_trade_no = #{outTradeNo}
+    </update>
+
+    <!-- BaseMapper 通用方法 -->
+    <select id="lookAll" resultMap="payLogMap">
+        SELECT * FROM t_pay_log ORDER BY create_time DESC
+    </select>
+    <select id="lookById" resultMap="payLogMap">
+        SELECT * FROM t_pay_log WHERE id = #{id}
+    </select>
+    <select id="loadcount" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_pay_log
+    </select>
+    <select id="lookPage" resultMap="payLogMap">
+        SELECT * FROM t_pay_log LIMIT #{currentPage}, #{pageSize}
+    </select>
+    <delete id="Delete">
+        DELETE FROM t_pay_log WHERE id = #{id}
+    </delete>
+    <delete id="DeleteBatch">
+        DELETE FROM t_pay_log WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+</mapper>

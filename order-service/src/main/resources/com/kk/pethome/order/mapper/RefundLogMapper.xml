@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kk.pethome.order.mapper.RefundLogMapper">
+    <resultMap id="refundLogMap" type="com.kk.pethome.order.pojo.RefundLog">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="user_id" property="userId"/>
+        <result column="reason" property="reason"/>
+        <result column="refund_amount" property="refundAmount"/>
+        <result column="status" property="status"/>
+        <result column="admin_remark" property="adminRemark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_refund_log(order_id, order_sn, user_id, reason, refund_amount, status, create_time, update_time)
+        VALUES(#{orderId}, #{orderSn}, #{userId}, #{reason}, #{refundAmount}, #{status}, NOW(), NOW())
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE t_refund_log SET status = #{status}, admin_remark = #{adminRemark}, update_time = NOW() WHERE id = #{id}
+    </update>
+
+    <select id="findById" resultMap="refundLogMap">
+        SELECT * FROM t_refund_log WHERE id = #{id}
+    </select>
+
+    <select id="findByOrderId" resultMap="refundLogMap">
+        SELECT * FROM t_refund_log WHERE order_id = #{orderId} ORDER BY create_time DESC LIMIT 1
+    </select>
+
+    <select id="findByUserId" resultMap="refundLogMap">
+        SELECT * FROM t_refund_log WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="findAll" resultMap="refundLogMap">
+        SELECT * FROM t_refund_log ORDER BY create_time DESC
+    </select>
+</mapper>

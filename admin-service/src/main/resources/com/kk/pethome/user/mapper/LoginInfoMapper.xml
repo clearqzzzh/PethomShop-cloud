@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kk.pethome.user.mapper.LoginInfoMapper">
+        <insert id="Add" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+            insert into t_logininfo (phone, password, email,salt,username,type,disable)
+            values (#{phone}, #{password}, #{email},#{salt},#{username},#{type},#{disable})
+        </insert>
+    <select id="selectByUsername" resultType="com.kk.pethome.user.pojo.loginInfo">
+        select * from t_logininfo where (username = #{username} or phone = #{username} or email = #{username}) and type = #{type}
+    </select>
+
+</mapper>

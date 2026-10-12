@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: pethome-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8858
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # 用户服务
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**,/api/pet/**
+        # 商品服务
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/product/**,/api/favorite/**,/api/review/**
+        # 支付服务
+        - id: pay-service
+          uri: lb://pay-service
+          predicates:
+            - Path=/api/pay/**
+        # 支付回调（不走鉴权）
+        - id: pay-notify
+          uri: lb://pay-service
+          predicates:
+            - Path=/api/pay/notify
+          filters:
+            - StripPrefix=0
+        # 优惠券服务
+        - id: coupon-service
+          uri: lb://coupon-service
+          predicates:
+            - Path=/api/coupon/**
+        # 管理服务
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/api/admin/**
+        # 订单服务
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**,/api/cart/**,/api/address/**,/api/history/**
+
+server:
+  port: 8080

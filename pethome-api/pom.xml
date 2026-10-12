@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent><groupId>com.kk.pethome</groupId><artifactId>pethome-cloud</artifactId><version>1.0-SNAPSHOT</version></parent>
+    <artifactId>pethome-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>pethome-api-user</module>
+        <module>pethome-api-product</module>
+        <module>pethome-api-pay</module>
+        <module>pethome-api-order</module>
+        <module>pethome-api-coupon</module>
+    </modules>
+    <description>Feign 接口契约（所有服务间调用的 API 定义）</description>
+    <dependencies>
+        <dependency><groupId>com.kk.pethome</groupId><artifactId>pethome-pojo</artifactId></dependency>
+        <dependency><groupId>com.kk.pethome</groupId><artifactId>pethome-common</artifactId></dependency>
+        <dependency><groupId>org.springframework.cloud</groupId><artifactId>spring-cloud-starter-openfeign</artifactId></dependency>
+    </dependencies>
+</project>
