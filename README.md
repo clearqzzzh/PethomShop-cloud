@@ -120,11 +120,3 @@ export MYSQL_PASSWORD=root
 ```
 
 支付宝沙箱配置位于 `pay-service` 的 `application.yml`，需替换为真实的 AppID 和密钥。
-
-## 项目截图
-
-> （可在此处添加系统截图或架构图）
-
-## License
-
-MIT
