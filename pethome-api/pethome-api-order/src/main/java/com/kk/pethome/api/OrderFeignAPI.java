@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@FeignClient(name = "order-service", path = "/api/order")
+@FeignClient(name = "order-service", path = "/api/order", fallback = OrderFeignFallback.class)
 public interface OrderFeignAPI {
 
     @PostMapping("/direct")

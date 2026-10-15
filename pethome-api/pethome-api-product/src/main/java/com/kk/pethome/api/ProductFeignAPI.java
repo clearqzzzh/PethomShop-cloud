@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "product-service", path = "/api/product")
+@FeignClient(name = "product-service", path = "/api/product", fallback = ProductFeignFallback.class)
 public interface ProductFeignAPI {
 
     @GetMapping("/search")

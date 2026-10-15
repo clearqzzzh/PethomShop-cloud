@@ -12,6 +12,17 @@ spring:
       config:
         server-addr: 127.0.0.1:8858
         file-extension: yml
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 5000
+      sentinel:
+        enabled: true
   datasource:
     url: jdbc:mysql://localhost:3306/pethome_pay?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:root}

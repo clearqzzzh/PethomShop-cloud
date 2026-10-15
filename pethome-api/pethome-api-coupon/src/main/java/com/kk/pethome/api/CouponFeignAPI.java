@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@FeignClient(name = "coupon-service", path = "/api/coupon")
+@FeignClient(name = "coupon-service", path = "/api/coupon", fallback = CouponFeignFallback.class)
 public interface CouponFeignAPI {
 
     /** 验券（下单前校验+预占锁定） */

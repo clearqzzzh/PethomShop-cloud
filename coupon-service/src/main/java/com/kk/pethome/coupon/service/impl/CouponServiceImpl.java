@@ -213,9 +213,12 @@ public class CouponServiceImpl implements CouponService {
     }
     private void couponLog(Long couponId, Long userId, String event, Long orderId, BigDecimal amount, String remark) {
         CouponUsageLog log = new CouponUsageLog();
-        log.setCouponId(couponId); log.setUserId(userId);
-        log.setEventType(event); log.setOrderId(orderId);
-        log.setAmountDeducted(amount); log.setRemark(remark);
+        log.setCouponId(couponId);
+        log.setUserId(userId);
+        log.setEventType(event);
+        log.setOrderId(orderId);
+        log.setAmountDeducted(amount);
+        log.setRemark(remark);
         usageLogMapper.insert(log);
     }
     private Map<String, Object> fail(String msg) { return Map.of("success", false, "message", msg); }

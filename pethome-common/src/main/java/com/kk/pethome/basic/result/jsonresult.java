@@ -23,7 +23,10 @@ public class jsonresult {
         }
         public static jsonresult fail(){
             return new jsonresult(false,"操作失败");
-    }
+        }
+        public static jsonresult fail(String message){
+            return new jsonresult(false, message);
+        }
         public jsonresult setMessage(String message) {
             this.message = message;
             return this;
