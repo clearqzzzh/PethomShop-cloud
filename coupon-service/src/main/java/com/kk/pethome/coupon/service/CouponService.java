@@ -19,9 +19,9 @@ public class CouponService {
     @Autowired private UserCouponMapper userCouponMapper;
     @Autowired private CouponUsageLogMapper usageLogMapper;
 
-    // ═══════════════════════════════════════════════
-    //  Redis + Lua 秒杀领券
-    // ═══════════════════════════════════════════════
+    // ════════════════════════════════
+    //  Redis + Lua 秒杀
+    // ════════════════════════════════
     private static final String SECKILL_LUA =
         "local stockKey = KEYS[1]\n" +
         "local limitKey = KEYS[2]\n" +
