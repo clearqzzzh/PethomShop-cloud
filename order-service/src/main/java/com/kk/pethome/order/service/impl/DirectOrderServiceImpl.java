@@ -7,6 +7,7 @@ import com.kk.pethome.basic.result.PageList;
 import com.kk.pethome.order.mapper.OrderMapper;
 import com.kk.pethome.order.pojo.Order;
 import com.kk.pethome.order.pojo.OrderItem;
+import com.kk.pethome.order.service.DirectOrderService;
 import com.kk.pethome.product.pojo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 /** 直接下单（不走购物车），给 Agent 工具调用 */
 @Service
-public class DirectOrderService {
+public class DirectOrderServiceImpl implements DirectOrderService {
 
     @Autowired
     private OrderMapper orderMapper;
@@ -31,6 +32,7 @@ public class DirectOrderService {
     @Autowired
     private CouponFeignAPI couponFeignAPI;
 
+    @Override
     @Transactional
     public Order createDirect(Map<String, Object> body) {
         Long userId = Long.valueOf(body.get("userId").toString());

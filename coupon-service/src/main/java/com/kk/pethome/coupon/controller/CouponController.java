@@ -2,7 +2,7 @@ package com.kk.pethome.coupon.controller;
 
 import com.kk.pethome.basic.result.jsonresult;
 import com.kk.pethome.coupon.pojo.CouponSeckill;
-import com.kk.pethome.coupon.service.*;
+import com.kk.pethome.coupon.service.CouponService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

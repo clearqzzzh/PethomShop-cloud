@@ -1,6 +1,7 @@
 package com.kk.pethome.order.service.impl;
 
 import com.kk.pethome.order.pojo.Order;
+import com.kk.pethome.order.service.LogisticsService;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ import java.util.*;
  * 状态流转：0=待付款 → 1=待发货 → 2=运输中 → 3=已到货
  */
 @Service
-public class LogisticsService {
+public class LogisticsServiceImpl implements LogisticsService {
 
     private static final String[] COURIER_COMPANIES = {"爪爪快递", "萌宠物流", "宠物达达", "闪送宠物专递"};
     private static final String[] CITIES = {"上海", "杭州", "南京", "苏州", "合肥", "武汉", "长沙", "广州", "深圳", "北京"};
@@ -27,6 +28,7 @@ public class LogisticsService {
      * @param order 订单（需含 payTime / shipTime / receiveTime / address）
      * @return 物流事件列表（按时间正序），若未发货返回空列表
      */
+    @Override
     public List<Map<String, Object>> getLogisticsTimeline(Order order) {
         List<Map<String, Object>> events = new ArrayList<>();
         if (order == null || order.getShipTime() == null) {
@@ -104,6 +106,7 @@ public class LogisticsService {
      * 根据订单ID生成模拟物流单号。
      * 格式：SF + 12位数字
      */
+    @Override
     public String generateTrackingNo(Long orderId) {
         String base = String.format("%08d", orderId);
         String rand = String.format("%04d", RAND.nextInt(10000));
@@ -113,6 +116,7 @@ public class LogisticsService {
     /**
      * 获取物流公司名。
      */
+    @Override
     public String getCourierName(String trackingNo) {
         return pickCourier(trackingNo);
     }

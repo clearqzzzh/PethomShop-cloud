@@ -8,6 +8,7 @@ import com.kk.pethome.order.mapper.OrderMapper;
 import com.kk.pethome.order.pojo.CartItem;
 import com.kk.pethome.order.pojo.Order;
 import com.kk.pethome.order.pojo.OrderItem;
+import com.kk.pethome.order.service.OrderService;
 import com.kk.pethome.product.pojo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
@@ -32,6 +33,7 @@ public class OrderServiceImpl {
     private CouponFeignAPI couponFeignAPI;
 
     /** 从购物车结算——生成订单，清空购物车 */
+    @Override
     @Transactional
     public Order createOrder(Long userId, List<Long> cartItemIds,
                              String recipient, String phone, String address,
@@ -132,6 +134,7 @@ public class OrderServiceImpl {
         return order;
     }
 
+    @Override
     public List<Order> getOrders(Long userId) {
         List<Order> orders = orderMapper.findByUserId(userId);
         for (Order o : orders) {
@@ -140,6 +143,7 @@ public class OrderServiceImpl {
         return orders;
     }
 
+    @Override
     public Order getOrder(Long orderId) {
         Order o = orderMapper.lookById(orderId);
         if (o != null) o.setItems(orderMapper.findItems(orderId));
@@ -147,6 +151,7 @@ public class OrderServiceImpl {
     }
 
     /** Agent 售后场景：查询用户最近N笔订单（含明细） */
+    @Override
     public List<Order> getRecentOrders(Long userId, int limit) {
         List<Order> orders = orderMapper.findRecentOrders(userId, limit);
         for (Order o : orders) {

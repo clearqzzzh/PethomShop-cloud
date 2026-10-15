@@ -3,10 +3,10 @@ package com.kk.pethome.order.controller;
 import com.kk.pethome.basic.result.jsonresult;
 import com.kk.pethome.order.mapper.OrderMapper;
 import com.kk.pethome.order.pojo.Order;
-import com.kk.pethome.order.service.impl.DirectOrderService;
-import com.kk.pethome.order.service.impl.LogisticsService;
-import com.kk.pethome.order.service.impl.OrderServiceImpl;
-import com.kk.pethome.order.service.impl.RefundService;
+import com.kk.pethome.order.service.DirectOrderService;
+import com.kk.pethome.order.service.LogisticsService;
+import com.kk.pethome.order.service.OrderService;
+import com.kk.pethome.order.service.RefundService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.*;
 @RequestMapping("/api/order")
 public class OrderController {
     @Autowired
-    private OrderServiceImpl orderService;
+    private OrderService orderService;
 
     @Autowired
     private DirectOrderService directOrderService;

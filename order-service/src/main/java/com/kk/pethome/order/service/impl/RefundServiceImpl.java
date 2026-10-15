@@ -4,6 +4,7 @@ import com.kk.pethome.order.mapper.OrderMapper;
 import com.kk.pethome.order.mapper.RefundLogMapper;
 import com.kk.pethome.order.pojo.Order;
 import com.kk.pethome.order.pojo.RefundLog;
+import com.kk.pethome.order.service.RefundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ import java.util.Map;
  * 订单状态：approveReturn时order.status→4(退货中)，completeRefund时order.status→5(已退款)
  */
 @Service
-public class RefundService {
+public class RefundServiceImpl implements RefundService {
 
     @Autowired
     private OrderMapper orderMapper;
@@ -34,6 +35,7 @@ public class RefundService {
      * 检查退货资格
      * @return {eligible: bool, reason: string, order: ...}
      */
+    @Override
     public Map<String, Object> checkEligibility(Long orderId) {
         Map<String, Object> result = new LinkedHashMap<>();
         Order order = orderMapper.lookById(orderId);
@@ -93,6 +95,7 @@ public class RefundService {
     /**
      * 申请退货（用户发起）
      */
+    @Override
     @Transactional
     public Map<String, Object> applyForReturn(Long orderId, Long userId, String reason) {
         Map<String, Object> result = new LinkedHashMap<>();
@@ -152,6 +155,7 @@ public class RefundService {
     /**
      * 审核通过退货（管理员 / Agent自动审批）
      */
+    @Override
     @Transactional
     public Map<String, Object> approveReturn(Long orderId, String adminRemark) {
         Map<String, Object> result = new LinkedHashMap<>();
@@ -189,6 +193,7 @@ public class RefundService {
     /**
      * 审核拒绝退货
      */
+    @Override
     @Transactional
     public Map<String, Object> rejectReturn(Long orderId, String adminRemark) {
         Map<String, Object> result = new LinkedHashMap<>();
@@ -224,6 +229,7 @@ public class RefundService {
      * 完成退款（退货收到货后确认退款）
      * 这一步将 order.status 改为 5(已退款)，refund_status 改为 4
      */
+    @Override
     @Transactional
     public Map<String, Object> completeRefund(Long orderId) {
         Map<String, Object> result = new LinkedHashMap<>();
@@ -265,6 +271,7 @@ public class RefundService {
     /**
      * Agent 一键退货（申请+审核+退款 一步到位，用于演示）
      */
+    @Override
     @Transactional
     public Map<String, Object> oneClickRefund(Long orderId, Long userId, String reason) {
         Map<String, Object> result = new LinkedHashMap<>();
@@ -304,6 +311,7 @@ public class RefundService {
     /**
      * 查询退货记录
      */
+    @Override
     public Map<String, Object> getRefundInfo(Long orderId) {
         Map<String, Object> result = new LinkedHashMap<>();
         Order order = orderMapper.lookById(orderId);

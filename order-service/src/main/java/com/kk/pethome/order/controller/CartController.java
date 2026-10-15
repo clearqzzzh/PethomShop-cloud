@@ -1,7 +1,7 @@
 package com.kk.pethome.order.controller;
 
 import com.kk.pethome.basic.result.jsonresult;
-import com.kk.pethome.order.service.impl.CartServiceImpl;
+import com.kk.pethome.order.service.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/api/cart")
 public class CartController {
     @Autowired
-    private CartServiceImpl cartService;
+    private CartService cartService;
 
     @GetMapping
     public jsonresult getCart(@RequestParam Long userId) {
