@@ -10,8 +10,8 @@ spring:
         enabled: true
         server-addr: 127.0.0.1:8858
       config:
-        import-check:
-          enabled: false
+        server-addr: 127.0.0.1:8858
+        file-extension: yml
   datasource:
     url: jdbc:mysql://localhost:3306/pethome_pay?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:root}

@@ -12,8 +12,8 @@ spring:
         heart-beat-timeout: 15000
         ip-delete-timeout: 30000
       config:
-        import-check:
-          enabled: false
+        server-addr: 127.0.0.1:8858
+        file-extension: yml
     gateway:
       discovery:
         locator:
